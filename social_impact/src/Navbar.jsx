@@ -1,13 +1,13 @@
 import React from "react"
 import "./Navbar.css"
-// import logo_light from "assets/logo-black.png" add the logo
+import logo from "./assets/logo1.png" //add the logo
 import toogle_light from './assets/night.png'
 import toogle_dark from './assets/day.png'
 
 const Navbar = () => {
     return (
         <div className="navbar">
-            <img src="" alt="" className="logo"/>
+            <img src={logo} alt="" className="logo"/>
             
             <ul>
                 <li>Home</li>
