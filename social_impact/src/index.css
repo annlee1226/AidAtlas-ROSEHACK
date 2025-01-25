@@ -12,6 +12,6 @@
   transition: 0.5s;
 }
 
-.container .dark {
+.container.dark {
   background: #222;
 }

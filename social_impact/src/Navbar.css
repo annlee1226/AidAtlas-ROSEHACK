@@ -5,6 +5,7 @@
     justify-content: space-between;
     background: #fff;
     padding: 15px 7%;
+    transition: 0.5s;
 }
 
 .logo{
@@ -29,4 +30,9 @@ ul li{
     width: 50px;
     cursor: pointer;
     margin-left: 40px;
+}
+
+.dark .navbar {
+    background: #000;
+    color:#fff;
 }
