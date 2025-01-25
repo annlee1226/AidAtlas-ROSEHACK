@@ -8,9 +8,8 @@
 }
 
 .logo{
-    width: 160px;
+    width: 90px;
     cursor: pointer;
-
 }
 
 ul{
@@ -24,4 +23,10 @@ ul li{
     margin: 10px 20px;
     font-size: 1;
     cursor: pointer;
+}
+
+.toggle-icon {
+    width: 50px;
+    cursor: pointer;
+    margin-left: 40px;
 }
