@@ -4,12 +4,12 @@
     align-items: center;
     justify-content: space-between;
     background: #fff;
-    padding: 15px 7%;
+    padding: 10px 7%;
     transition: 0.5s;
 }
 
 .logo{
-    width: 90px;
+    width: 80px;
     cursor: pointer;
 }
 
