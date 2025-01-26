@@ -1,11 +1,12 @@
 from flask import Flask, request, jsonify
 import requests
+from geopy.geocoders import Nominatim
 
 app = Flask(__name__)
 
 
 your_location = {"latitude": None, "longitude": None}
-
+geolocator = Nominatim(user_agent="geoapi")
 
 @app.route('/location', methods=['POST'])
 def location():
@@ -53,33 +54,61 @@ def shelters():
         return jsonify(f"Error {response.status_code}, no available shelters")
 
 
-@app.route('/searchVolunteering', methods=['POST'])
-def searchVolunteering():
+@app.route('/searchLocalJobs', methods=['POST'])
+def searchLocalJobs():
     data = request.json
     latitude = data.get('latitude')
     longitude = data.get('longitude')
 
-    params = {"latitude" : latitude, "longitude": longitude, "scope": "regional", "page_size":10 }
-    volunteer_url = "https://www.volunteerconnector.org/api/search/"
-    response = requests.get(volunteer_url, params=params)
-    if response.status_code != 200:
-        return jsonify({"error": "Failed to fetch volunteer opportunities."}), 500
+    # Get the country using geopy
+    geolocator = Nominatim(user_agent="myApp")
+    location = geolocator.reverse((latitude, longitude))
+    if location:
+        country = location.raw.get('address', {}).get('country', 'Country not found')
+        city = location.raw.get('address', {}).get('city', 'City not found')
+    else:
+        return jsonify({"error": "Location could not be determined"}), 400
 
-    data = response.json()
-    results = data.get("results", [])
-    volunteer_jobs = [{
-        "title": result["title"],
-            "description": result["description"],
-            "url": result["url"],
-            "organization_name": result["organization"]["name"],
-            "organization_url": result["organization"]["url"],
-            "remote_or_online": result["remote_or_online"],
-        }
-        for result in results
-    ]
-    return jsonify({"volunteer_jobs": volunteer_jobs})
+    # Reliefweb API query
+    query = {
+        "filter": {
+            "conditions": [
+                {"field": "country.name", "value": country}
+            ]
+        },
+        "fields": {
+            "include": ["title", "country", "city", "url"]
+        },
+        "limit": 50  # Adjust as needed
+    }
 
+    reliefweb_url = "https://api.reliefweb.int/v1/jobs"
 
+    # Request volunteer data from the API
+    response = requests.post(reliefweb_url, json=query)
+    
+    if response.status_code == 200:
+        data = response.json()
+        filtered_jobs = []
+        
+        for job in data.get('data', []):
+            job_fields = job.get('fields', {})
+            filtered_jobs.append({
+                "title": job_fields.get('title', ''),
+                "country": [c['name'] for c in job_fields.get('country', [])],
+                "city": [c['name'] for c in job_fields.get('city', [])],
+                "url": job_fields.get('url', '')
+            })
+        
+        if not filtered_jobs:
+            return jsonify({"message": "No job listings were found"}), 404
+        
+        return jsonify(filtered_jobs)
+    else:
+        return jsonify({
+            "error": "Failed to retrieve volunteer data", 
+            "status_code": response.status_code
+        }), response.status_code    
 @app.route('/')
 def home():
     return "HOMMEEE"
