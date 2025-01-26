@@ -3,10 +3,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #fff;
+    background: #E7D1CB;;
     padding: 10px 7%;
     transition: 0.5s;
 }
+
 
 .logo{
     width: 80px;
@@ -24,6 +25,15 @@ ul li{
     margin: 10px 20px;
     font-size: 1;
     cursor: pointer;
+}
+
+ul li:hover{
+    color: #0096c7;
+    text-decoration-line: underline;
+    font-weight: bold;
+    font-size: large;
+    transition: 0.3s;
+
 }
 
 .toggle-icon {
