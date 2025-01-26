@@ -1,0 +1,31 @@
+.about {
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.102);
+    padding: 20px;
+    margin: 90px;
+    text-align: center;
+    width: 500px;
+    height: 400px;
+    box-shadow: 5px 5px 10px, -5px, -5px, 10px;
+}
+
+.card .front-card {
+    position: relative;
+    backface-visibility: hidden;
+}
+
+.front-card .card-title {
+    font-family: 'merriweather';
+    margin: 0;
+    color: #E7D1CB;
+    font-size: 2.5rem;
+}
+
+.front-card .card-text {
+    font-family: 'atma';
+    color: hsl(0, 0%, 40%);
+    padding-top: 20px;
+    font-size: 1.3rem;
+    color: #9dcadd;
+}
