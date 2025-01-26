@@ -4,7 +4,6 @@ import requests
 app = Flask(__name__)
 
 
-
 your_location = {"latitude": None, "longitude": None}
 
 
@@ -54,8 +53,31 @@ def shelters():
         return jsonify(f"Error {response.status_code}, no available shelters")
 
 
-    
-    
+@app.route('/searchVolunteering', methods=['POST'])
+def searchVolunteering():
+    data = request.json
+    latitude = data.get('latitude')
+    longitude = data.get('longitude')
+
+    params = {"latitude" : latitude, "longitude": longitude, "scope": "regional", "page_size":10 }
+    volunteer_url = "https://www.volunteerconnector.org/api/search/"
+    response = requests.get(volunteer_url, params=params)
+    if response.status_code != 200:
+        return jsonify({"error": "Failed to fetch volunteer opportunities."}), 500
+
+    data = response.json()
+    results = data.get("results", [])
+    volunteer_jobs = [{
+        "title": result["title"],
+            "description": result["description"],
+            "url": result["url"],
+            "organization_name": result["organization"]["name"],
+            "organization_url": result["organization"]["url"],
+            "remote_or_online": result["remote_or_online"],
+        }
+        for result in results
+    ]
+    return jsonify({"volunteer_jobs": volunteer_jobs})
 
 
 @app.route('/')
