@@ -9,7 +9,7 @@ import markericon from './assets/markericon.png';
 import { Icon, divIcon, point } from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import { setLocation, getShelters, getJobs } from './location.jsx';
-
+import Card from 'react-bootstrap/Card';
 
 
 function App() {
@@ -102,9 +102,14 @@ function App() {
           </div>
         </div>
       )}
-
             <div className={`container ${theme}`}ref={listingRef} style={{ height: "100vh" }}>
-              <h1>THIS IS WHERE THE LISTING GOES</h1>
+            {jobs.map((job, index) => (
+              <div key={index}>
+                <h1>{job.title}</h1>
+                <p>Country: {job.country}</p>
+                <p>City: {job.city}</p>
+                </div>
+              ))}
             </div>
 
             <div ref={shelterRef}
