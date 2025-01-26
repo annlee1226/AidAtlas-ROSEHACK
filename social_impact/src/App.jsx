@@ -8,7 +8,9 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import markericon from './assets/markericon.png';
 import { Icon, divIcon, point } from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
-import { setLocation, getShelters } from './location.jsx';
+import { setLocation, getShelters, getJobs } from './location.jsx';
+
+
 
 function App() {
   const current_theme = localStorage.getItem('current_theme');
@@ -16,6 +18,7 @@ function App() {
   const [activePage, setActivePage] = useState('home');
   const [currentLocation, setCurrentLocation] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [jobs, setJobs] = useState([]);
   const [shelters, setShelters] = useState([]);
 
   const homeRef = useRef(null);
@@ -54,6 +57,13 @@ function App() {
   
             // Assuming the shelter data has a `features` array with coordinates
             setShelters(sheltersData.features || []);
+
+
+            const joblisting = await getJobs(latitude, longitude);
+            console.log("Job data:", joblisting);
+            setJobs(joblisting)
+
+            
           } catch (error) {
             console.error("Error in location or shelters fetch:", error);
           } finally {

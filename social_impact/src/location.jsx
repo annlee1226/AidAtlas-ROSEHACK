@@ -30,3 +30,17 @@ export const getShelters = async (latitude, longitude) => {
   }
 };
 
+
+export const getJobs = async (latitude, longitude) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/searchLocalJobs`, {
+      latitude,
+      longitude,
+    });
+    console.log("Location response:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error sending location:", error);
+    throw error;
+  }
+};
