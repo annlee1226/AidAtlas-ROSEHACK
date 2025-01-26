@@ -1,9 +1,10 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import requests
 from geopy.geocoders import Nominatim
 
 app = Flask(__name__)
-
+CORS(app)
 
 your_location = {"latitude": None, "longitude": None}
 geolocator = Nominatim(user_agent="geoapi")
@@ -79,7 +80,7 @@ def searchLocalJobs():
         "fields": {
             "include": ["title", "country", "city", "url"]
         },
-        "limit": 50  # Adjust as needed
+        "limit": 10  # Adjust as needed
     }
 
     reliefweb_url = "https://api.reliefweb.int/v1/jobs"
