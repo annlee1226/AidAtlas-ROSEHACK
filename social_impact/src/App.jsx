@@ -32,20 +32,6 @@ function App() {
     iconSize: [38, 38],
   })
 
-  const markers = [
-    {
-      geocode: [48.86, 2.3522],
-      popUp: "Hello, I am pop up 1"
-    },
-    {
-      geocode: [48.85, 2.3522],
-      popUp: "Hello, I am pop up 2"
-    },
-    {
-      geocode: [48.855, 2.34],
-      popUp: "Hello, I am pop up 3"
-    }
-  ];
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -149,8 +135,8 @@ function App() {
                           ]}
                         >
                           <Popup>
-                            <p>Name: {shelter.attributes.SHELTER_NAME || "Unknown"}</p>
-                            <p>Address: {shelter.attributes.ADDRESS || "Unknown"}</p>
+                            <p>Name: {shelter.attributes.shelter_name ||  "Unknown"}</p>
+                            <p>Address: {shelter.attributes.address ||  "Unknown"}</p>
                           </Popup>
                         </Marker>
                       ))}

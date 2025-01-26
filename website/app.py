@@ -40,7 +40,7 @@ def shelters():
         "geometry": f"{longitude},{latitude}",
         "geometryType": "esriGeometryPoint",
         "spatialRel": "esriSpatialRelIntersects",
-        "distance": 10,
+        "distance": 100,
         "units": "esriSRUnit_StatuteMile",
         "outFields": "*",
         "f": "json"

@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Replace these with actual values or dynamically calculate them
-  const latitude = 33.9631353; // Example latitude
-  const longitude = -117.3373967; // Example longitude
+  const latitude = 33.9631353;
+  const longitude = -117.3373967;
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -18,8 +17,8 @@ const Jobs = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            latitude: latitude, // Pass latitude dynamically
-            longitude: longitude, // Pass longitude dynamically
+            latitude: latitude,
+            longitude: longitude,
           }),
         });
 
@@ -28,8 +27,6 @@ const Jobs = () => {
         }
 
         const data = await response.json();
-
-        // Assuming the response is an array of jobs
         setJobs(data);
       } catch (err) {
         setError(err.message);
@@ -50,27 +47,40 @@ const Jobs = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+    <div
+      className="flex flex-wrap justify-center items-center gap-8 p-8 min-h-screen bg-gray-100"
+      style={{
+        backgroundImage: "linear-gradient(145deg, #f4f4f9, #e9ecef)",
+      }}
+    >
       {jobs.map((job, index) => (
         <div
           key={index}
-          className="border rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow"
+          className="bg-white w-full max-w-sm rounded-2xl shadow-lg p-6 transition-transform transform hover:scale-105"
+          style={{
+            border: "1px solid rgba(0, 0, 0, 0.1)",
+            backgroundImage: "linear-gradient(145deg, #ffffff, #f9f9f9)",
+          }}
         >
-          <h3 className="text-lg font-semibold mb-2">{job.title || "Untitled Job"}</h3>
-          <p className="text-gray-600">
+          <h3 className="text-xl font-bold mb-4 text-gray-800 text-center">
+            {job.title || "Untitled Job"}
+          </h3>
+          <p className="text-gray-700 mb-2 text-center">
             <strong>City:</strong> {job.city || "N/A"}
           </p>
-          <p className="text-gray-600">
+          <p className="text-gray-700 mb-4 text-center">
             <strong>Country:</strong> {job.country || "N/A"}
           </p>
-          <a
-            href={job.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 hover:underline mt-2 inline-block"
-          >
-            View Job
-          </a>
+          <div className="flex justify-center">
+            <a
+              href={job.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-blue-600 text-white text-sm py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              View Job
+            </a>
+          </div>
         </div>
       ))}
     </div>
