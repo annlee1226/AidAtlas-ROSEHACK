@@ -9,7 +9,7 @@ import markericon from './assets/markericon.png';
 import { Icon, divIcon, point } from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import { setLocation, getShelters, getJobs } from './location.jsx';
-import Card from 'react-bootstrap/Card';
+import './Card.css';
 
 
 function App() {
@@ -102,15 +102,39 @@ function App() {
           </div>
         </div>
       )}
-            <div className={`container ${theme}`}ref={listingRef} style={{ height: "100vh" }}>
-            {jobs.map((job, index) => (
-              <div key={index}>
-                <h1>{job.title}</h1>
-                <p>Country: {job.country}</p>
-                <p>City: {job.city}</p>
+
+        <div style ={{
+          padding: "10px",
+        }}></div>
+            
+            <div
+              className={`container ${theme}`}
+              ref={listingRef}
+              style={{
+                height: "100vh",
+                display: "grid",
+                gridTemplateColumns: "repeat(3, 1fr)",
+                gap: "20px",
+                justifyContent: "center",
+                alignItems: "start",
+                marginTop: "90px",
+                marginRight: "auto",
+                marginLeft: "auto",
+                padding: "10px",
+              }}
+            >
+              {jobs.map((job, index) => (
+              <div className='card' key={index}>
+                <h3 className='card-title'>{job.title}</h3>
+                <p className='card-description'>Country: {job.country}</p>
+                <p className='card-description'>City: {job.city}</p>
+                <a className='card-button' href={job.url}>Learn More</a>
                 </div>
               ))}
+           
             </div>
+
+           
 
             <div ref={shelterRef}
               style={{
