@@ -80,7 +80,7 @@ def searchLocalJobs():
         "fields": {
             "include": ["title", "country", "city", "url"]
         },
-        "limit": 10  # Adjust as needed
+        "limit": 6  # Adjust as needed
     }
 
     reliefweb_url = "https://api.reliefweb.int/v1/jobs"
