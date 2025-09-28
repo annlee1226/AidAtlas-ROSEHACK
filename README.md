@@ -1,5 +1,3 @@
-# ROSEHACK
-
 # AidAtlas — Maps shelters & relief opportunities
 
 **Best Social Impact – Rose Hackathon 2025**
