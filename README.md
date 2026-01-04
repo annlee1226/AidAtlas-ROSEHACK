@@ -65,6 +65,3 @@ GET /api/updates?query=wildfire&limit=10
 * **Security:** no PII stored; use HTTPS in prod; keep keys in env vars.
 * **Extensible:** add new sources via small “adapter” modules that normalize to a common schema.
 
-## License
-
-MIT (see `LICENSE`).
